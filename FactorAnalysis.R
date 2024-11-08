@@ -10,7 +10,6 @@ library(reshape2)
 library(ggthemes)
 library(colorspace)
 library(texreg)
-setwd("~/Documents/Research/Yardstick/")
 load("DATA/microdf.RData")
 df.melt <- melt(df, id.vars = c("abbreviation", "fedatt.micro"))
 df.short <- df %>% group_by(abbreviation) %>% filter(row_number(fedatt.micro) == 1) %>% 
@@ -54,14 +53,6 @@ ggplot(data = df,
   theme_gray(base_size = 18) + theme(legend.position = "none") +
   labs(x = "Historically Prussian", y = "Federalism Attitudes Values")
 ggsave("pics/prussiamicro.pdf", width = 16, height = 9)
-
-## new attempt: what if the mixed are set to NA?
-df.prussia <- df %>% 
-  mutate(Prussia.na = ifelse(Prussian.char == "yes", 1, ifelse(Prussian.char == "no",2, NA)), .after = "Prussian.char")
-df.prussia %>% kruskal_test(fedatt.micro ~ Prussia.na)
-ggplot(data = df.prussia %>% filter(., is.na(Prussia.na) == F),
-       aes(x = factor(Prussia.na), y = fedatt.micro, 
-           colour = factor(Prussia.na), group = factor(Prussia.na))) + geom_violin()
 
 #####################################################################################################################
 ## 4. Catholic Share
