@@ -12,7 +12,7 @@ library(texreg)
 library(sf)
 library(rgdal)
 library(geojsonsf)
-setwd("~/Documents/Research/Yardstick/")
+#setwd("")
 load("DATA/microdf.RData")
 ######## DATA  #############################################################
 df.melt <- melt(df, id.vars = c("abbreviation", "fedatt.micro"))
@@ -27,7 +27,6 @@ nuts.df <- data.frame(NUTS_ID = c("DEA", "DEB", "DEC", "DED", "DEE", "DE3",
 bund_shp <- giscoR::gisco_get_nuts(country = "DEU", nuts_level = 1, resolution = 03) %>%
   left_join(x = ., y = nuts.df, by = "NUTS_ID")
 
-#plot.data <- left_join(x = bund_shp, y = df.short, by = "abbreviation")
 ############# KW/Wilcox/Dunn-Tests  ########################################
 kw1 <- df %>% kruskal_test(fedatt.micro~party)
 mw1 <- df %>% wilcox_test(fedatt.micro~party, alternative = "greater")
@@ -36,7 +35,7 @@ dt2<- df %>%  dunn_test(fedatt.micro~Prussian.char)
 ############################################################################
 # FIG 1: Contributing and recipient states since 1950
 #setwd("~/Documents/Research/Yardstick/")
-LFAseit1950 <- read.csv("~/Documents/Research/Yardstick/DATA/LFAseit1950.csv") %>% 
+LFAseit1950 <- read.csv("LFAseit1950.csv") %>% 
   mutate(across(where(is.integer), as.numeric))
 t.df <- as.data.frame(t(LFAseit1950 %>% dplyr::select(., -c("Year")) ) ) %>% 
   setNames(., paste0("x",1950:2022) ) %>%
@@ -87,7 +86,7 @@ lfaplot.fun <- function(anno) {
 lfaplots <- lapply(y.list, lfaplot.fun)
 lfaplots.pic <- ggarrange(plotlist = lfaplots, ncol = 3, nrow = 2, 
                           common.legend = TRUE, legend = "right")
-ggsave("~/Documents/Research/Yardstick/BR01/Publius2024RR/vNOV24/pics/LFA1950BW.pdf", 
+ggsave("LFA1950BW.pdf", 
        plot = lfaplots.pic)
 #lfaplots.pic
 ############################################################################
@@ -104,7 +103,7 @@ fedatt.plot <- ggplot(data = plot.data %>%
   theme_void(base_size = 18) + 
   theme(legend.position = "right") +
   labs(title = "", fill = "Value")
-ggsave("~/Documents/Research/Yardstick/BR01/Publius2024RR/vNOV24/pics/FedAttAvgBW.pdf", 
+ggsave("FedAttAvgBW.pdf", 
        plot = fedatt.plot)
 ############################################################################
 # FIG 3: FKM 21 (Financial Strength in 2021)
@@ -126,7 +125,7 @@ f2 <- ggplot(data = df.short, aes(y = FKM21, x = fedatt.mean)) +
        x = "Avg. Federalism Stance", y = "Financial Strength in 2021 (Index)")
 fkmpic <- ggarrange(f1, f2, nrow = 1, ncol = 2)
 fkmpic
-ggsave("~/Documents/Research/Yardstick/BR01/Publius2024RR/vNOV24/pics/fkm21BW.pdf", 
+ggsave("fkm21BW.pdf", 
        plot = fkmpic, width = 16, height = 9)
 ############################################################################
 # FIG 4: Federalism Stance by government-heading parties
@@ -139,7 +138,7 @@ pmicro.plot <- ggplot(data = df.melt %>% filter(., variable %in% c("party")) %>%
            vjust = 1, hjust = 0, size = 6) +
   theme_gray(base_size = 22) + theme(legend.position = "none") +
   labs(y = "Federalism Stance", x = "")
-ggsave("~/Documents/Research/Yardstick/BR01/Publius2024RR/vNOV24/pics/partymicroBW.pdf", 
+ggsave("partymicroBW.pdf", 
        width = 16, height = 9, plot = pmicro.plot)
 ############################################################################
 #FIG 5: Catholic Shares
@@ -182,7 +181,7 @@ c4 <- ggplot(data = plot.data) +
        fill = "Share") 
 fourfig <- ggarrange(c3, c1, c4, c2, ncol = 2, nrow = 2)
 fourfig
-ggsave("~/Documents/Research/Yardstick/BR01/Publius2024RR/vNOV24/pics/cath_fourfigBW.pdf", 
+ggsave("cath_fourfigBW.pdf", 
        plot = fourfig, width = 12, height = 9)
 ############################################################################
 #FIG 6:  Prussia ###########################################################
@@ -194,7 +193,7 @@ prussia.plot <- ggplot(data = prussia.sf) +
   geom_sf(data = bund_shp, aes(fill = NA), col = "black", fill = NA) +
   coord_sf() +
   theme_void()
-ggsave("~/Documents/Research/Yardstick/BR01/Publius2024RR/vNOV24/pics/PrussiaBW.pdf", 
+ggsave("PrussiaBW.pdf", 
        plot = prussia.plot)
 ##############################################################################
 # FIG 7: prussiamicro
@@ -208,7 +207,7 @@ prussiapic <- ggplot(data = df,
            vjust = 1, hjust = 0, size = 6) +
   theme_gray(base_size = 18) + theme(legend.position = "none") +
   labs(x = "Historically Prussian", y = "Federalism Stance")
-ggsave("~/Documents/Research/Yardstick/BR01/Publius2024RR/vNOV24/pics/prussiamicroBW.pdf", 
+ggsave("prussiamicroBW.pdf", 
        width = 16, height = 9, plot = prussiapic)
 ##########################################################################################
-save.image("~/Documents/Research/Yardstick/BR01/Publius2024RR/vNOV24/pics/picscode.RData")
+
