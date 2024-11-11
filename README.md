@@ -7,12 +7,15 @@ Replication files to the paper entitled "What explains German Länder government
 
 1.2 LFAseit1950.csv consists of the fiscal equalisation scheme data from 1950 on. Source: Federal Ministry of Finanace, Federal Statistical Office.
 
+1.3 Fed_ind_Fleiss.RDdata and Att_t_fed.RData are our conducted data regarding the statements in coalitions agreements (Att_t_fed.RData) and Statements of Land incumbents (Fed_ind_Fleiss.RData). The latter is used for another reserach project and is not directly associated with the present project.
+
 2. RScripts
 FactorAnalysis.R: All statistical evaluations related to states' stances. Several comments shall help to explain the steps.
 BWpics.R: Generates all figures (in BW). 
 Script02.R: Survey analysis for the state of BW. The script uses da data set available at gesis. The analysis relates to a section in the supplementary material.
+FleissKappa.R: Calculation of Fleiss-Kappa-values. 
 
-3. Remarks
+4. Remarks
 The scripts run perfectly on Linux machines. We have tested the scripts on Windows with no errors occuring.
 
 A Data Acessibility Statement
