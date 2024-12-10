@@ -1,6 +1,6 @@
 # FederalismStance
 
-This repository contains replication files for the paper *"What explains German Länder governments' stances towards federalism?"* by **Salvatore Barbaro and Julia M. Rode**.
+This repository contains replication files for the paper *"What explains German Länder governments' stances towards federalism?"* by **Salvatore Barbaro and Julia M. Rode**. Publius. The Journal of Federalism (2025), DOI 10.1093/publius/pjae050 
 
 ## Table of Contents
 
